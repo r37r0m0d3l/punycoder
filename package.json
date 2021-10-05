@@ -1,0 +1,92 @@
+{
+  "author": "Anton Trofimenko",
+  "bugs": {
+    "url": "https://github.com/r37r0m0d3l/punycoder/issues"
+  },
+  "contributors": [
+    {
+      "email": "r37r0m0d3l@protonmail.com",
+      "name": "Anton Trofimenko"
+    }
+  ],
+  "description": "Range header field string parser.",
+  "devDependencies": {
+    "@types/node": "16.10.2",
+    "@typescript-eslint/eslint-plugin": "4.32.0",
+    "@typescript-eslint/parser": "4.32.0",
+    "esbuild": "0.13.3",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-config-standard": "16.0.3",
+    "eslint-plugin-import": "2.24.2",
+    "eslint-plugin-jsdoc": "36.1.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-standard": "5.0.0",
+    "jest": "27.2.4",
+    "prettier": "2.4.1",
+    "typescript": "4.4.3"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "engines": {
+    "node": ">= 12.20"
+  },
+  "exports": {
+    ".": {
+      "browser": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      },
+      "node": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/index.cjs",
+    "dist/index.cjs.map",
+    "dist/index.d.ts",
+    "dist/index.js",
+    "dist/index.js.map"
+  ],
+  "homepage": "https://github.com/r37r0m0d3l/punycoder",
+  "jest": {
+    "verbose": true
+  },
+  "keywords": [
+    "header",
+    "http",
+    "parser",
+    "range"
+  ],
+  "license": "MIT",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "name": "punycoder",
+  "packageManager": "npm@6",
+  "private": false,
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r37r0m0d3l/punycoder.git"
+  },
+  "scripts": {
+    "lint": "eslint --config .eslintrc.json \"./src/**/*.ts\"",
+    "test": "jest --collect-coverage=false",
+    "test:coverage": "jest --collect-coverage=true",
+    "build": "npm run build:prod",
+    "build:test": "node ./build.cjs -- --minify=false --sourcemap=false",
+    "build:dev": "node ./build.cjs -- --minify=false --sourcemap=true",
+    "build:prod": "node ./build.cjs -- --minify=true --sourcemap=true"
+  },
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "version": "1.0.0"
+}
