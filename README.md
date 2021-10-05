@@ -5,7 +5,7 @@ Punycode converter.
 ## Installation
 
 ```sh
-npm install punycoder
+npm install puny-coder
 ```
 
 ## API
@@ -15,13 +15,13 @@ npm install punycoder
 ```js
 const {
   asciiToUnicode, unicodeToAscii,
-} = require("punycoder");
+} = require("puny-coder");
 ```
 
 ```typescript
 import {
   asciiToUnicode, unicodeToAscii,
-} from "punycoder";
+} from "puny-coder";
 ```
 
 ### asciiToUnicode(text, onError, urlDecode)
@@ -29,7 +29,7 @@ import {
 ```typescript
 import {
   asciiToUnicode,
-} from "punycoder";
+} from "puny-coder";
 
 declare function asciiToUnicode(
   text: string,
@@ -49,7 +49,7 @@ declare function asciiToUnicode(
 ```typescript
 import {
   unicodeToAscii,
-} from "punycoder";
+} from "puny-coder";
 
 declare function unicodeToAscii(
   text: string,

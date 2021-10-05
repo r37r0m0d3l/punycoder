@@ -69,7 +69,7 @@
   "license": "MIT",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "name": "punycoder",
+  "name": "puny-coder",
   "packageManager": "npm@6",
   "private": false,
   "readmeFilename": "README.md",
