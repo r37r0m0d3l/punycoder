@@ -1,6 +1,10 @@
-# Punycode-r
+# Puny-coder
 
 Punycode converter.
+
+Representation of Unicode with the limited ASCII character subset.
+
+Only Unicode and ASCII and vice versa converting.
 
 ## Installation
 
