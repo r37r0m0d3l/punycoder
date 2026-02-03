@@ -1,18 +1,22 @@
-const { asciiToUnicode, unicodeToAscii } = require("../dist/index.cjs");
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
+import { asciiToUnicode, unicodeToAscii } from "../dist/index.js";
 
 describe("Puny-coder", function () {
   it(`unicodeToAscii`, function () {
-    expect(unicodeToAscii("Привет, мир!")).toEqual("xn--%2C%20!-eddpqe5aVkht");
-    expect(unicodeToAscii("αβγ")).toEqual("xn--mxacd");
-    expect(unicodeToAscii("ยจฆฟคฏข")).toEqual("xn--22cdfh1b8fsa");
-    expect(unicodeToAscii("도메인")).toEqual("xn--hq1bm8jm9l");
-    expect(unicodeToAscii("ドメイン名例")).toEqual("xn--eckwd4c7cu47r2wf");
+    assert.strictEqual(unicodeToAscii("Здравей, свят!"), "xn--%2C%20!-5cdkcjkOy7esao5p");
+    assert.strictEqual(unicodeToAscii("Ahoj, světe!"), "xn--Ahoj%2C%20svte!-nsb");
+    assert.strictEqual(unicodeToAscii("αβγ"), "xn--mxacd");
+    assert.strictEqual(unicodeToAscii("ยจฆฟคฏข"), "xn--22cdfh1b8fsa");
+    assert.strictEqual(unicodeToAscii("도메인"), "xn--hq1bm8jm9l");
+    assert.strictEqual(unicodeToAscii("ドメイン名例"), "xn--eckwd4c7cu47r2wf");
   });
   it(`asciiToUnicode`, function () {
-    expect(asciiToUnicode("xn--%2C%20!-eddpqe5aVkht")).toEqual("Привет, мир!");
-    expect(asciiToUnicode("xn--mxacd")).toEqual("αβγ");
-    expect(asciiToUnicode("xn--22cdfh1b8fsa")).toEqual("ยจฆฟคฏข");
-    expect(asciiToUnicode("xn--hq1bm8jm9l")).toEqual("도메인");
-    expect(asciiToUnicode("xn--eckwd4c7cu47r2wf")).toEqual("ドメイン名例");
+    assert.strictEqual(asciiToUnicode("xn--%2C%20!-5cdkcjkOy7esao5p"), "Здравей, свят!");
+    assert.strictEqual(asciiToUnicode("xn--Ahoj%2C%20svte!-nsb"), "Ahoj, světe!");
+    assert.strictEqual(asciiToUnicode("xn--mxacd"), "αβγ");
+    assert.strictEqual(asciiToUnicode("xn--22cdfh1b8fsa"), "ยจฆฟคฏข");
+    assert.strictEqual(asciiToUnicode("xn--hq1bm8jm9l"), "도메인");
+    assert.strictEqual(asciiToUnicode("xn--eckwd4c7cu47r2wf"), "ドメイン名例");
   });
 });

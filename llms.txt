@@ -1,0 +1,51 @@
+# puny-coder
+
+> Punycode converter for representation of Unicode with the limited ASCII character subset.
+
+Lightweight and efficient utility to transcode between Unicode and ASCII using the Punycode algorithm (RFC 3492). Ideal for IDN (Internationalized Domain Names) handling and URL encoding/decoding where Unicode characters are not natively supported.
+
+## Docs
+
+- [README](https://github.com/r37r0m0d3l/punycoder#readme): Full usage guide, features, and detailed parameter descriptions.
+- [NPM Package](https://www.npmjs.com/package/puny-coder): Latest version and distribution details.
+- [Repository](https://github.com/r37r0m0d3l/punycoder): Source code, issues, and development status.
+
+## API
+
+- `asciiToUnicode(text: string, onError?: string, urlDecode?: boolean): string`: Converts a Punycode ASCII string back to its Unicode representation.
+- `unicodeToAscii(text: string, onError?: string, urlEncode?: boolean, skipOnValid?: boolean): string`: Converts a Unicode string to its Punycode ASCII representation.
+
+## Examples
+
+- [Usage Examples](https://github.com/r37r0m0d3l/punycoder/blob/main/test/index.test.js):
+
+  Unicode to ASCII.
+
+  ```ts
+  import { unicodeToAscii } from 'puny-coder';
+ 
+  unicodeToAscii("Здравей, свят!"); // "xn--%2C%20!-5cdkcjkOy7esao5p"
+  unicodeToAscii("Ahoj, světe!"); // "xn--Ahoj%2C%20svte!-nsb"
+  unicodeToAscii("αβγ"); // "xn--mxacd"
+  unicodeToAscii("ยจฆฟคฏข"); // "xn--22cdfh1b8fsa"
+  unicodeToAscii("도메인"); // "xn--hq1bm8jm9l"
+  unicodeToAscii("ドメイン名例"); // "xn--eckwd4c7cu47r2wf"
+  ```
+
+  ASCII to Unicode.
+  ```ts
+  import { asciiToUnicode } from 'puny-coder';
+ 
+  asciiToUnicode("xn--%2C%20!-5cdkcjkOy7esao5p"); // "Здравей, свят!"
+  asciiToUnicode("xn--Ahoj%2C%20svte!-nsb"); // "Ahoj, světe!"
+  asciiToUnicode("xn--mxacd"); // "αβγ"
+  asciiToUnicode("xn--22cdfh1b8fsa"); // "ยจฆฟคฏข"
+  asciiToUnicode("xn--hq1bm8jm9l"); // "도메인"
+  asciiToUnicode("xn--eckwd4c7cu47r2wf"); // "ドメイン名例"
+  ```
+
+## Optional
+
+- [Changelog](https://github.com/r37r0m0d3l/punycoder/blob/main/CHANGELOG): History of changes and version updates.
+- [License](https://github.com/r37r0m0d3l/punycoder/blob/main/LICENSE): MIT License details.
+- [Contributing](https://github.com/r37r0m0d3l/punycoder/issues): Bug reports and feature requests.

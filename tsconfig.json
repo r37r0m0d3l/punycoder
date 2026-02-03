@@ -5,7 +5,7 @@
     "alwaysStrict": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "esModuleInterop": false,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,

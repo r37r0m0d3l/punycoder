@@ -11,44 +11,29 @@
   ],
   "description": "Punycode converter.",
   "devDependencies": {
-    "@types/node": "18.15.11",
-    "@typescript-eslint/eslint-plugin": "5.58.0",
-    "@typescript-eslint/parser": "5.58.0",
-    "esbuild": "0.17.16",
-    "eslint": "8.38.0",
-    "eslint-config-prettier": "8.8.0",
-    "eslint-config-standard": "17.0.0",
-    "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-jsdoc": "41.1.1",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-standard": "5.0.0",
-    "jest": "29.5.0",
-    "prettier": "2.8.7",
-    "typescript": "5.0.4"
+    "@types/node": "^25.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   },
-  "directories": {
-    "test": "test"
+  "engines": {
+    "node": ">=22.18.0",
+    "npm": ">=8.12.0"
   },
+  "engineStrict": true,
   "exports": {
     ".": {
       "browser": {
-        "import": "./dist/index.js",
-        "require": "./dist/index.cjs"
-      },
-      "node": {
-        "import": "./dist/index.js",
-        "require": "./dist/index.cjs"
+        "import": "./dist/index.js"
       },
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "node": {
+        "import": "./dist/index.js"
+      },
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "files": [
-    "dist/index.cjs",
-    "dist/index.cjs.map",
     "dist/index.d.ts",
     "dist/index.js",
     "dist/index.js.map"
@@ -69,25 +54,22 @@
     "url"
   ],
   "license": "MIT",
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "name": "puny-coder",
   "private": false,
-  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/r37r0m0d3l/punycoder.git"
   },
   "scripts": {
-    "lint": "eslint --config .eslintrc.json \"./src/**/*.ts\"",
-    "test": "jest --collect-coverage=false",
-    "test:coverage": "jest --collect-coverage=true",
-    "build": "npm run build:prod",
-    "build:test": "node ./build.cjs -- --minify=false --sourcemap=false",
-    "build:dev": "node ./build.cjs -- --minify=false --sourcemap=true",
-    "build:prod": "node ./build.cjs -- --minify=true --sourcemap=true"
+    "build": "tsup src/index.ts --format esm --dts --sourcemap --clean --minify --treeshake",
+    "dev": "tsup src/index.ts --format esm --watch --dts",
+    "package:upgrade": "npx npm-check --update",
+    "prepublishOnly": "npm run build",
+    "test": "node --test"
   },
   "type": "module",
   "types": "dist/index.d.ts",
-  "version": "1.0.1"
+  "version": "2.0.0"
 }

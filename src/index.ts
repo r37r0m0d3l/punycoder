@@ -1,4 +1,3 @@
-import { parse, stringify } from "querystring";
 
 abstract class Punycode {
   protected static readonly BASE = 36;
@@ -253,7 +252,8 @@ function unicodeToAscii(text: string, onError: string = text, urlEncode = true, 
   try {
     let result;
     if (urlEncode) {
-      result = stringify({ "": Punycode.toAscii(text) }, undefined, " ").trim();
+      // Encode using browser-compatible API to match previous behavior (no leading key or '=')
+      result = encodeURIComponent(Punycode.toAscii(text));
     } else {
       result = Punycode.toAscii(text);
     }
@@ -286,7 +286,13 @@ function unicodeToAscii(text: string, onError: string = text, urlEncode = true, 
 function asciiToUnicode(text: string, onError: string = text, urlDecode = true): string {
   try {
     if (urlDecode) {
-      return Punycode.toUnicode(Object.keys(parse(text))[0]);
+      const params = new URLSearchParams(text);
+      let firstKey = "";
+      for (const [key] of params) {
+        firstKey = key;
+        break;
+      }
+      return Punycode.toUnicode(firstKey);
     } else {
       return Punycode.toUnicode(text);
     }

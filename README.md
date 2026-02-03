@@ -6,34 +6,24 @@ Representation of Unicode with the limited ASCII character subset.
 
 Only Unicode and ASCII and vice versa converting.
 
-## Installation
+## 🚀 Installation
 
 ```sh
 npm install puny-coder
 ```
 
-## API
+## 🏗️ Examples
 
 <!-- eslint-disable no-unused-vars -->
 
-```js
-const {
-  asciiToUnicode, unicodeToAscii,
-} = require("puny-coder");
-```
-
 ```typescript
-import {
-  asciiToUnicode, unicodeToAscii,
-} from "puny-coder";
+import { asciiToUnicode, unicodeToAscii } from "puny-coder";
 ```
 
 ### asciiToUnicode(text, onError, urlDecode)
 
 ```typescript
-import {
-  asciiToUnicode,
-} from "puny-coder";
+import { asciiToUnicode } from "puny-coder";
 
 declare function asciiToUnicode(
   text: string,
@@ -42,18 +32,27 @@ declare function asciiToUnicode(
 ): string;
 ```
 
-| Parameter   | Type       | Description                             |
-| :---------- | :--------- | :---------------------------------------|
-| `text`      | `string`   | **Required**. Size in bytes.            |
-| `onError`   | `string`   | String that would be returned on error. |
-| `urlDecode` | `boolean`  | Additional decode URL.                  |
+| Parameter   | Type      | Description                             |
+|:------------|:----------|:----------------------------------------|
+| `text`      | `string`  | **Required**. Size in bytes.            |
+| `onError`   | `string`  | String that would be returned on error. |
+| `urlDecode` | `boolean` | Additional decode URL.                  |
+
+```ts
+import { asciiToUnicode } from 'puny-coder';
+
+asciiToUnicode("xn--%2C%20!-5cdkcjkOy7esao5p"); // "Здравей, свят!"
+asciiToUnicode("xn--Ahoj%2C%20svte!-nsb"); // "Ahoj, světe!"
+asciiToUnicode("xn--mxacd"); // "αβγ"
+asciiToUnicode("xn--22cdfh1b8fsa"); // "ยจฆฟคฏข"
+asciiToUnicode("xn--hq1bm8jm9l"); // "도메인"
+asciiToUnicode("xn--eckwd4c7cu47r2wf"); // "ドメイン名例"
+```
 
 ### asciiToUnicode(text, onError, urlDecode)
 
 ```typescript
-import {
-  unicodeToAscii,
-} from "puny-coder";
+import { unicodeToAscii } from "puny-coder";
 
 declare function unicodeToAscii(
   text: string,
@@ -63,20 +62,39 @@ declare function unicodeToAscii(
 ): string;
 ```
 
-| Parameter     | Type       | Description                             |
-| :------------ | :--------- | :-------------------------------------- |
-| `text`        | `string`   | **Required**. Size in bytes.            |
-| `onError`     | `string`   | String that would be returned on error. |
-| `urlEncode`   | `boolean`  | Additional encode URL.                  |
-| `skipOnValid` | `boolean`  | Skip conversion on valid input.         |
+| Parameter     | Type      | Description                             |
+|:--------------|:----------|:----------------------------------------|
+| `text`        | `string`  | **Required**. Size in bytes.            |
+| `onError`     | `string`  | String that would be returned on error. |
+| `urlEncode`   | `boolean` | Additional encode URL.                  |
+| `skipOnValid` | `boolean` | Skip conversion on valid input.         |
 
-## See also
+  ```ts
+  import { unicodeToAscii } from 'puny-coder';
+ 
+  unicodeToAscii("Здравей, свят!"); // "xn--%2C%20!-5cdkcjkOy7esao5p"
+  unicodeToAscii("Ahoj, světe!"); // "xn--Ahoj%2C%20svte!-nsb"
+  unicodeToAscii("αβγ"); // "xn--mxacd"
+  unicodeToAscii("ยจฆฟคฏข"); // "xn--22cdfh1b8fsa"
+  unicodeToAscii("도메인"); // "xn--hq1bm8jm9l"
+  unicodeToAscii("ドメイン名例"); // "xn--eckwd4c7cu47r2wf"
+  ```
 
-[💾 My other projects](https://r37r0m0d3l.icu/open_source_map)
+## 📄 License
 
-<img alt="Open Source" src="https://raw.githubusercontent.com/r37r0m0d3l/r37r0m0d3l/master/osmap.svg?sanitize=true" width="960" height="520" style="display:block;height:auto;margin-left:auto;margin-right:auto;min-height:520px;min-width:960px;width:100%;">
+[MIT](https://choosealicense.com/licenses/mit/)
 
-<!-- Badges -->
+
+[//]: # (## See also)
+
+[//]: # ()
+[//]: # ([💾 My other projects]&#40;https://r37r0m0d3l.icu/open_source_map&#41;)
+
+[//]: # ()
+[//]: # (<img alt="Open Source" src="https://raw.githubusercontent.com/r37r0m0d3l/r37r0m0d3l/master/osmap.svg?sanitize=true" width="960" height="520" style="display:block;height:auto;margin-left:auto;margin-right:auto;min-height:520px;min-width:960px;width:100%;">)
+
+[//]: # ()
+[//]: # (<!-- Badges -->)
 
 [npm-version-img]: https://badgen.net/npm/v/punycoder?&icon=npm&label=npm&color=DD3636&v=1.0.0
 [npm-version-url]: https://npmjs.com/package/punycoder
