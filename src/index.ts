@@ -1,4 +1,3 @@
-
 abstract class Punycode {
   protected static readonly BASE = 36;
   protected static readonly DAMP = 700;
@@ -10,12 +9,12 @@ abstract class Punycode {
   protected static readonly T_MAX = 26;
   protected static readonly T_MIN = 1;
 
-  protected static utf16decode(input: string): number[] {
+  protected static utf16decode(input: string): Array<number> {
     const length = input.length;
-    const output = [];
+    const output: Array<number> = [];
     let index = 0;
-    let value;
-    let extra;
+    let value: number;
+    let extra: number;
     while (index < length) {
       value = input.charCodeAt(index++);
       if ((value & 0xf800) === 0xd800) {
@@ -29,11 +28,12 @@ abstract class Punycode {
     }
     return output;
   }
-  protected static utf16encode(input: string[]): string {
+
+  protected static utf16encode(input: Array<number>): string {
     const length = input.length;
     const output = [];
     let index = 0;
-    let value;
+    let value: any;
     while (index < length) {
       value = input[index++];
       if ((value & 0xf800) === 0xd800) {
@@ -53,10 +53,10 @@ abstract class Punycode {
     return charPoint - 48 < 10
       ? charPoint - 22
       : charPoint - 65 < 26
-      ? charPoint - 65
-      : charPoint - 97 < 26
-      ? charPoint - 97
-      : Punycode.BASE;
+        ? charPoint - 65
+        : charPoint - 97 < 26
+          ? charPoint - 97
+          : Punycode.BASE;
   }
 
   protected static encodeDigit(digit: number, flag: 0 | 1): number {
@@ -66,7 +66,7 @@ abstract class Punycode {
   }
 
   protected static adapt(delta: number, numPoints: number, firstTime = false): number {
-    let index;
+    let index: number;
     delta = firstTime ? Math.floor(delta / Punycode.DAMP) : delta >> 1;
     delta += Math.floor(delta / numPoints);
     for (index = 0; delta > ((Punycode.BASE - Punycode.T_MIN) * Punycode.T_MAX) >> 1; index += Punycode.BASE) {
@@ -85,10 +85,11 @@ abstract class Punycode {
   }
 
   protected static decode(input: string, shouldRestoreCase = true): string {
-    const output = [];
-    const caseFlags = [];
+    const output: Array<number> = [];
+    const caseFlags: Array<boolean> = [];
     const inputLength = input.length;
-    let out, bias, basic, indexCharCode, ic, oldIndex, width, key, digit, track, len;
+    let out: number, bias: number, basic: number, indexCharCode: number, ic: number, oldIndex: number, width: number,
+      key: number, digit: number, track: number, len: number;
     let initialN = Punycode.INITIAL_N;
     let index = 0;
     bias = Punycode.INITIAL_BIAS;
@@ -105,7 +106,7 @@ abstract class Punycode {
       }
       output.push(input.charCodeAt(indexCharCode));
     }
-    for (ic = basic > 0 ? basic + 1 : 0; ic < inputLength; ) {
+    for (ic = basic > 0 ? basic + 1 : 0; ic < inputLength;) {
       for (oldIndex = index, width = 1, key = Punycode.BASE; ; key += Punycode.BASE) {
         if (ic >= inputLength) {
           throw RangeError("Punycode bad input 1");
@@ -143,7 +144,7 @@ abstract class Punycode {
     if (shouldRestoreCase) {
       for (index = 0, len = output.length; index < len; index++) {
         if (caseFlags[index]) {
-          output[index] = String.fromCharCode(output[index]).toUpperCase().charCodeAt(0);
+          output[index] = String.fromCodePoint(output[index]).toUpperCase().codePointAt(0)!;
         }
       }
     }
@@ -151,17 +152,22 @@ abstract class Punycode {
   }
 
   protected static encode(input: string, shouldPreserveCase = false): string {
-    let head, index, max, digit, key, track, ijv, caseFlags;
-    if (shouldPreserveCase) {
-      caseFlags = Punycode.utf16decode(input);
-    }
+    let head: number, index: number, max: number, digit: number, key: number, track: number, ijv: number;
+    let caseFlags: Array<boolean> | undefined;
     const inputNumbers = Punycode.utf16decode(input.toLowerCase());
-    const inputLength = inputNumbers.length;
     if (shouldPreserveCase) {
-      for (index = 0; index < inputLength; index++) {
-        caseFlags[index] = inputNumbers[index] !== caseFlags[index];
+      caseFlags = [];
+      let inputIndex = 0;
+      for (const value of Punycode.utf16decode(input)) {
+        const lowerLength = Punycode.utf16decode(String.fromCodePoint(value).toLowerCase()).length;
+        caseFlags.push(value !== inputNumbers[inputIndex]);
+        for (let lowerIndex = 1; lowerIndex < lowerLength; lowerIndex++) {
+          caseFlags.push(false);
+        }
+        inputIndex += lowerLength;
       }
     }
+    const inputLength = inputNumbers.length;
     const output = [];
     let initialN = Punycode.INITIAL_N;
     let delta = 0;
@@ -241,16 +247,16 @@ abstract class Punycode {
 
 /**
  * @name unicodeToAscii
- * @description Converts unicode domain names to ASCII.
+ * @description Converts Unicode domain names to ASCII.
  * @param {string} [text]
  * @param {string=} [onError=text]
  * @param {boolean=} [urlEncode=true]
  * @param {boolean=} [skipOnValid=true]
  * @returns {string}
  */
-function unicodeToAscii(text: string, onError: string = text, urlEncode = true, skipOnValid = true): string {
+function unicodeToAscii(text: string, onError: string = text, urlEncode: boolean = true, skipOnValid: boolean = true): string {
   try {
-    let result;
+    let result: string;
     if (urlEncode) {
       // Encode using browser-compatible API to match previous behavior (no leading key or '=')
       result = encodeURIComponent(Punycode.toAscii(text));
@@ -283,7 +289,7 @@ function unicodeToAscii(text: string, onError: string = text, urlEncode = true, 
  * @param {boolean} [urlDecode=true]
  * @returns {string}
  */
-function asciiToUnicode(text: string, onError: string = text, urlDecode = true): string {
+function asciiToUnicode(text: string, onError: string = text, urlDecode: boolean = true): string {
   try {
     if (urlDecode) {
       const params = new URLSearchParams(text);

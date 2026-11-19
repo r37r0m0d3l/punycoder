@@ -19,4 +19,15 @@ describe("Puny-coder", function () {
     assert.strictEqual(asciiToUnicode("xn--hq1bm8jm9l"), "도메인");
     assert.strictEqual(asciiToUnicode("xn--eckwd4c7cu47r2wf"), "ドメイン名例");
   });
+  it(`preserves case across Unicode lowercase expansions and supplementary letters`, function () {
+    for (const [input, expected] of [
+      ["İstanbul", "I\u0307stanbul"],
+      ["İzmir", "I\u0307zmir"],
+      ["𐐀", "𐐀"],
+    ]) {
+      assert.strictEqual(asciiToUnicode(unicodeToAscii(input)), expected);
+    }
+
+    assert.strictEqual(asciiToUnicode("xn--hj8C"), "𐐀");
+  });
 });
