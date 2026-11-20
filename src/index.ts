@@ -212,7 +212,7 @@ abstract class Punycode {
             );
             digit = Math.floor((digit - track) / (Punycode.BASE - track));
           }
-          output.push(String.fromCharCode(Punycode.encodeDigit(digit, shouldPreserveCase && caseFlags[index] ? 1 : 0)));
+          output.push(String.fromCharCode(Punycode.encodeDigit(digit, shouldPreserveCase && caseFlags?.[index] ? 1 : 0)));
           bias = Punycode.adapt(delta, head + 1, head === base);
           delta = 0;
           ++head;
@@ -293,11 +293,7 @@ function asciiToUnicode(text: string, onError: string = text, urlDecode: boolean
   try {
     if (urlDecode) {
       const params = new URLSearchParams(text);
-      let firstKey = "";
-      for (const [key] of params) {
-        firstKey = key;
-        break;
-      }
+      const firstKey = params.keys().next().value ?? "";
       return Punycode.toUnicode(firstKey);
     } else {
       return Punycode.toUnicode(text);

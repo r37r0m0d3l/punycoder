@@ -1,6 +1,12 @@
 # Changelog
 
-[2.0.0]
+## 2.0.1
+
+* 🐛 Bug Fixes
+
+    * Preserves case across Unicode lowercase expansions and supplementary letters
+
+## 2.0.0
 
 ⚠️ BREAKING CHANGES
 
@@ -14,11 +20,11 @@ Changed
 
 * NPM Distribution: Updated the build process to ensure the NPM registry only contains the ES Module (ESM) version of the library.
 
-### [1.0.1] (2023-04-17)
+## 1.0.1
 
 * Code cleanup
 
-### [1.0.0] (2021-10-06)
+## 1.0.0
 
 ### Features
 

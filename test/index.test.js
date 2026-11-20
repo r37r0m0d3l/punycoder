@@ -27,7 +27,6 @@ describe("Puny-coder", function () {
     ]) {
       assert.strictEqual(asciiToUnicode(unicodeToAscii(input)), expected);
     }
-
     assert.strictEqual(asciiToUnicode("xn--hj8C"), "𐐀");
   });
 });
