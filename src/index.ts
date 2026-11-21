@@ -148,7 +148,7 @@ abstract class Punycode {
         }
       }
     }
-    return Punycode.utf16encode(output);
+    return Punycode.utf16encode(output).normalize("NFC");
   }
 
   protected static encode(input: string, shouldPreserveCase = false): string {

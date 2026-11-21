@@ -21,8 +21,8 @@ describe("Puny-coder", function () {
   });
   it(`preserves case across Unicode lowercase expansions and supplementary letters`, function () {
     for (const [input, expected] of [
-      ["İstanbul", "I\u0307stanbul"],
-      ["İzmir", "I\u0307zmir"],
+      ["İstanbul", "İstanbul"],
+      ["İzmir", "İzmir"],
       ["𐐀", "𐐀"],
     ]) {
       assert.strictEqual(asciiToUnicode(unicodeToAscii(input)), expected);

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2
+
+* 🐛 Bug Fixes
+
+    * `asciiToUnicode` now NFC-normalizes decoded Punycode to preserve uppercase letters for tricky Unicode characters.
+
 ## 2.0.1
 
 * 🐛 Bug Fixes
